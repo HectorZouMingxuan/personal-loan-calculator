@@ -40,15 +40,15 @@ Run `npm install` first, then run `npm run dev`.
 
 ### Home Page
 
-![Home Page](./public/screenshots/home-empty.png)
+![Home Page](./public/screenshots/Home_Empty.png)
 
 ### Sample Calculation 1
 
-![Sample Result 1](./public/screenshots/sample-result-1.png)
+![Sample Result 1](./public/screenshots/result_1.png)
 
 ### Sample Calculation 2
 
-![Sample Result 2](./public/screenshots/sample-result-2.png)
+![Sample Result 2](./public/screenshots/result_2.png)
 
 ### Validation Message
 
