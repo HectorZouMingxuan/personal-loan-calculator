@@ -1,4 +1,4 @@
-# Maybank-style Personal Loan Calculator
+# Personal Loan Calculator
 
 A simple front-end banking loan calculator built with React. This project estimates loan repayment based on fixed interest tiers and flat-rate logic.
 
