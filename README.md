@@ -1,59 +1,238 @@
 # Personal Banking Toolkit
 
-A modern personal banking toolkit built with React and Vite. Includes multiple financial tools for loan planning, savings goals, budgeting, and financial estimation.
+A modern multi-tool personal finance web app built with React 19 and Vite. Designed with a premium dark banking UI, it brings together seven financial calculators in one clean, tab-based interface — covering everything from loan planning to retirement projection.
+
+> Built for portfolio and educational purposes. Results are estimates only and should not be used for actual financial decisions.
+
+---
+
+## Live Preview
+
+![App Overview](./public/screenshots/overview.png)
+
+---
 
 ## Features
 
-- **Loan Calculator** — Monthly repayment, total repayment, and total interest with automatic interest tier selection and amortization schedule
-- **Fixed Deposit** — Interest earned, maturity amount, and effective annual yield
-- **Savings Goal** — Monthly contribution needed to reach a target with a given return rate
-- **Credit Card Payoff** — Months to pay off, total interest, and total paid
-- **Currency Converter** — MYR to/from major currencies (USD, EUR, GBP, SGD, JPY, AUD)
-- **EPF Planner** — Projected EPF balance at retirement using employee/employer contributions
-- **Budget Tracker** — Track monthly income and expenses with a live surplus/deficit summary
+### 1. Loan Calculator
+Enter a loan amount and tenure to get a full repayment breakdown. Interest rates are applied automatically based on tiered loan amount ranges.
 
-## Technologies Used
+- Automatic interest tier selection (8.0% / 7.0% / 6.5% p.a.)
+- Monthly repayment, total repayment, total interest
+- Repayment details panel (rate applied, tenure, total months)
+- Full month-by-month amortization schedule table
 
-- React 19
-- Vite
-- JavaScript
-- CSS (plain vanilla, no UI frameworks)
+**Interest Rate Tiers:**
+
+| Loan Amount | Rate |
+|---|---|
+| RM 5,000 – RM 20,000 | 8.0% p.a. |
+| RM 20,001 – RM 50,000 | 7.0% p.a. |
+| RM 50,001 – RM 100,000 | 6.5% p.a. |
+
+![Loan Calculator](./public/screenshots/loan_calculator.png)
+![Amortization Schedule](./public/screenshots/loan_amortization.png)
+
+---
+
+### 2. Fixed Deposit (FD) Calculator
+Calculate the returns on a fixed deposit placement.
+
+- Inputs: principal, tenure (months), annual interest rate
+- Outputs: interest earned, maturity amount, effective annual yield
+- Supports tenures from 1 to 60 months
+
+![Fixed Deposit Calculator](./public/screenshots/fixed_deposit.png)
+
+---
+
+### 3. Savings Goal Calculator
+Work backwards from a target amount to find out how much to save monthly.
+
+- Inputs: target amount, current savings, annual return rate (%), years to goal
+- Outputs: required monthly contribution, total contributions, total interest earned
+- Uses compound interest formula (monthly compounding)
+
+![Savings Goal Calculator](./public/screenshots/savings_goal.png)
+
+---
+
+### 4. Credit Card Payoff Calculator
+Find out how long it will take to pay off a credit card balance.
+
+- Inputs: outstanding balance, annual interest rate, monthly payment
+- Outputs: months to payoff, total interest paid, total amount paid
+- Shows minimum payment warning (2% of balance or RM 50, whichever is higher)
+- Detects and warns if the monthly payment is too low to ever pay off the balance
+
+![Credit Card Payoff](./public/screenshots/credit_card.png)
+
+---
+
+### 5. Currency Converter
+Convert MYR to and from 7 major currencies with a live reference rate table.
+
+- Bidirectional conversion (any currency to any currency, via MYR)
+- Swap button to instantly reverse the conversion direction
+- Reference rate table showing all rates per 1 MYR
+- Currencies supported: USD, EUR, GBP, SGD, JPY, AUD, CNY
+
+> Rates are static demo values (as of May 2025) and do not reflect live market data.
+
+![Currency Converter](./public/screenshots/currency_converter.png)
+
+---
+
+### 6. EPF Retirement Planner
+Project your EPF (Employees Provident Fund) balance at retirement age.
+
+- Inputs: monthly salary, current EPF balance, current age, retirement age
+- Uses Malaysian EPF contribution rates: Employee 11% + Employer 13% = 24% total
+- Assumes 5.5% annual dividend rate (adjustable in logic)
+- Outputs: monthly contribution breakdown, projected balance, total contributions, total dividends earned
+
+![EPF Planner](./public/screenshots/epf_planner.png)
+
+---
+
+### 7. Budget Tracker
+Track monthly income and expenses to see your financial health at a glance.
+
+- Input monthly income and up to any number of expense categories
+- 6 default categories: Housing/Rent, Food & Groceries, Transport, Utilities, Entertainment, Healthcare
+- Add and remove custom expense categories
+- Live surplus / deficit indicator with colour coding (green = surplus, red = deficit)
+- Savings rate calculation with status indicator (≥20% green, ≥10% yellow, <10% red)
+- Expense breakdown panel showing each category's amount and % of income
+- 50/30/20 budgeting guide panel (Needs / Wants / Savings targets)
+
+![Budget Tracker](./public/screenshots/budget_tracker.png)
+![Budget Breakdown](./public/screenshots/budget_breakdown.png)
+
+---
+
+## Tech Stack
+
+| Area | Technology |
+|---|---|
+| UI Framework | React 19 |
+| Build Tool | Vite 8 |
+| Language | JavaScript (ES2022+) |
+| Styling | Plain CSS (no UI framework) |
+| Font | Outfit (Google Fonts) |
+| Routing | None — pure state-based tab switching |
+| Package Manager | npm |
+
+### Key implementation techniques
+
+- **Component architecture** — each feature is a self-contained folder under `src/components/` with its own JSX and logic
+- **Pure utility functions** — all financial math lives in `src/utils/` as stateless pure functions with no side effects
+- **Flat-rate loan math** — `calculateLoan.js` uses flat-rate (not reducing balance) interest: `totalInterest = principal × rate × years`
+- **Compound interest** — Savings Goal and EPF use standard future-value compound interest formulas (`FV = PV × (1+r)^n`)
+- **Amortization schedule** — `calculateAmortization.js` generates a row-per-month table of opening balance, interest portion, principal portion, and closing balance
+- **Credit card payoff simulation** — iterative month-by-month loop (capped at 600 months) to handle non-linear reducing balance
+- **Tiered rate lookup** — `loanRates.js` stores rate tiers as an array; `getRateByAmount()` does a range find
+- **Bidirectional currency conversion** — all conversions route through MYR as a base currency, eliminating the need for a full cross-rate matrix
+- **Dynamic category management** — Budget Tracker uses React state to add/remove expense categories at runtime
+- **CSS custom theming** — dark premium banking theme using CSS variables and design tokens; no Tailwind or styled-components
+- **Tabular numerics** — `font-variant-numeric: tabular-nums` applied to all financial output values for clean column alignment
+- **Responsive layout** — CSS Grid with a single `@media (max-width: 860px)` breakpoint collapses all two-column grids to single column
+
+---
 
 ## Project Structure
 
 ```
-src/
-  components/
-  data/
-  utils/
-  assets/styles/
+personal-banking-toolkit/
+├── public/
+│   └── screenshots/          
+├── src/
+│   ├── components/
+│   │   ├── Header.jsx
+│   │   ├── TabNav.jsx
+│   │   ├── FooterNote.jsx
+│   │   ├── LoanForm.jsx
+│   │   ├── ResultSummary.jsx
+│   │   ├── RateTable.jsx
+│   │   ├── RepaymentDetails.jsx
+│   │   ├── AmortizationTable.jsx
+│   │   ├── FixedDeposit/
+│   │   │   └── FDForm.jsx
+│   │   ├── SavingsGoal/
+│   │   │   └── SavingsGoalForm.jsx
+│   │   ├── CreditCard/
+│   │   │   └── CreditCardForm.jsx
+│   │   ├── CurrencyConverter/
+│   │   │   └── CurrencyConverter.jsx
+│   │   ├── EPF/
+│   │   │   └── EPFForm.jsx
+│   │   └── BudgetTracker/
+│   │       └── BudgetTracker.jsx
+│   ├── data/
+│   │   ├── loanRates.js
+│   │   └── exchangeRates.js
+│   ├── utils/
+│   │   ├── calculateLoan.js
+│   │   ├── calculateAmortization.js
+│   │   ├── calculateFD.js
+│   │   ├── calculateSavingsGoal.js
+│   │   ├── calculateCreditCard.js
+│   │   ├── calculateEPF.js
+│   │   ├── formatCurrency.js
+│   │   └── validateInputs.js
+│   ├── assets/styles/
+│   │   ├── global.css
+│   │   ├── layout.css
+│   │   └── components.css
+│   ├── App.jsx
+│   └── main.jsx
+├── index.html
+├── package.json
+└── vite.config.js
 ```
 
-## How to Run
+---
+
+## Getting Started
 
 ```bash
+# Install dependencies
 npm install
+
+# Start development server
 npm run dev
+
+# Build for production
+npm run build
+
+# Preview production build
+npm run preview
 ```
 
-## Screenshots
+---
 
-### Home Page
+## Screenshots Guide
 
-![Home Page](./public/screenshots/Home_Empty.png)
+All screenshots should be placed in `public/screenshots/`. Take them in a desktop browser at full width (1280px+ recommended) unless noted otherwise.
 
-### Sample Calculation 1
+| Filename | Tab to open | What the screenshot should show |
+|---|---|---|
+| `overview.png` | Any tab | Full app viewport — hero title, tab bar, and one feature visible below |
+| `loan_calculator.png` | Loan Calculator | Form filled with a sample loan (e.g. RM 50,000, 5 years) and result summary showing monthly payment, total repayment, total interest |
+| `loan_amortization.png` | Loan Calculator | Scroll down to show the full amortization table with several rows visible |
+| `fixed_deposit.png` | Fixed Deposit | Form filled (e.g. RM 10,000, 12 months, 3.5%) with result cards showing interest earned and maturity amount |
+| `savings_goal.png` | Savings Goal | Form filled (e.g. RM 100,000 target, 5 years) with result showing monthly contribution needed |
+| `credit_card.png` | Credit Card | Form filled with a balance and monthly payment, showing months to payoff and total interest |
+| `currency_converter.png` | Currency | MYR to USD conversion active with result displayed, and the reference rate table visible below |
+| `epf_planner.png` | EPF Planner | Form filled (e.g. salary RM 5,000, age 28, retire at 60) with projected balance result |
+| `budget_tracker.png` | Budget Tracker | Income and several expense categories filled in, summary panel showing surplus/deficit |
+| `budget_breakdown.png` | Budget Tracker | After clicking Calculate — scroll to show the Expense Breakdown and 50/30/20 Guide panels |
 
-![Sample Result 1](./public/screenshots/result_1.png)
-
-### Sample Calculation 2
-
-![Sample Result 2](./public/screenshots/result_2.png)
-
-### Validation Message
-
-![Validation Error](./public/screenshots/validation-error.png)
+---
 
 ## Notes
 
-This toolkit is built for portfolio and educational purposes only. Results are estimates and should not be used as a basis for any actual financial decision.
+- This app is built for educational purposes only.
+- All calculations are estimates. Credit card and EPF calculations use simplified assumptions.
+- Currency exchange rates are hardcoded static values (May 2025) and do not reflect live market data.
+- EPF contribution rates are based on Malaysian statutory rates (Employee 11%, Employer 13%).
