@@ -1,10 +1,9 @@
 function FooterNote() {
   return (
-    <footer className="card footer-note">
-      <h2>Note</h2>
+    <footer className="footer-note">
       <p>
-        This project is built for learning and portfolio demonstration purposes. It is not an official banking
-        calculator and should not be used as a final financial decision tool.
+        This toolkit is built for portfolio and educational purposes only. Results are estimates and
+        should not be used as a basis for any actual financial decision.
       </p>
     </footer>
   );

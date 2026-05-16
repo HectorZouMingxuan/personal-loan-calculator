@@ -1,18 +1,12 @@
 function Header() {
   return (
-    <header className="page-header card">
-      <p className="eyebrow">Banking Loan Calculator Module</p>
-      <h1>Maybank-style Personal Loan Calculator</h1>
-      <p className="header-text">
-        A simple front-end calculator that estimates repayment using fixed interest tiers and flat-rate logic.
+    <header className="hero-card">
+      <div className="hero-glow" />
+      <p className="hero-eyebrow">Personal Banking</p>
+      <h1 className="hero-title">Personal Banking<br />Toolkit</h1>
+      <p className="hero-subtitle">
+        A modern personal banking toolkit for loan planning, savings goals, budgeting, and financial estimation.
       </p>
-
-      <div className="tag-row">
-        <span className="tag">React</span>
-        <span className="tag">Loan Estimation</span>
-        <span className="tag">Input Validation</span>
-        <span className="tag">Portfolio Project</span>
-      </div>
     </header>
   );
 }
