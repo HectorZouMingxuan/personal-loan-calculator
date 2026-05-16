@@ -211,24 +211,7 @@ npm run preview
 
 ---
 
-## Screenshots Guide
 
-All screenshots should be placed in `public/screenshots/`. Take them in a desktop browser at full width (1280px+ recommended) unless noted otherwise.
-
-| Filename | Tab to open | What the screenshot should show |
-|---|---|---|
-| `overview.png` | Any tab | Full app viewport — hero title, tab bar, and one feature visible below |
-| `loan_calculator.png` | Loan Calculator | Form filled with a sample loan (e.g. RM 50,000, 5 years) and result summary showing monthly payment, total repayment, total interest |
-| `loan_amortization.png` | Loan Calculator | Scroll down to show the full amortization table with several rows visible |
-| `fixed_deposit.png` | Fixed Deposit | Form filled (e.g. RM 10,000, 12 months, 3.5%) with result cards showing interest earned and maturity amount |
-| `savings_goal.png` | Savings Goal | Form filled (e.g. RM 100,000 target, 5 years) with result showing monthly contribution needed |
-| `credit_card.png` | Credit Card | Form filled with a balance and monthly payment, showing months to payoff and total interest |
-| `currency_converter.png` | Currency | MYR to USD conversion active with result displayed, and the reference rate table visible below |
-| `epf_planner.png` | EPF Planner | Form filled (e.g. salary RM 5,000, age 28, retire at 60) with projected balance result |
-| `budget_tracker.png` | Budget Tracker | Income and several expense categories filled in, summary panel showing surplus/deficit |
-| `budget_breakdown.png` | Budget Tracker | After clicking Calculate — scroll to show the Expense Breakdown and 50/30/20 Guide panels |
-
----
 
 ## Notes
 
